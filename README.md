@@ -1,2 +1,3 @@
-# Personal Finance Tracker
- CS101  semester Project
+Personal Finance Tracker
+
+CS101 Semester Project

@@ -5,6 +5,7 @@
 #include <fstream>
 using namespace std;
 
+Rabia-Yasin
 // Global variables or constants
 int MAX_ENTRIES = 100;
 
@@ -16,10 +17,15 @@ void askUser();
 void saveDataToFile(const string& filename, float amounts[][2], string categories, string dates[], int currentIndex);
 void calculateBalance(float amounts[][2], int currentIndex, float &totalIncome, float &totalExpenses, float &balance);
 
+// All the functions:
+
+ main
+
 
 int main(){
 
     return 0;
+
 }
 
 
@@ -66,5 +72,7 @@ void saveDataToFile(const string& file, float amounts[][2], string categories, s
     // close the file
     outFile.close();
     cout << "Data saved successfully to file: " << file <<endl;
+}
+
 }
 

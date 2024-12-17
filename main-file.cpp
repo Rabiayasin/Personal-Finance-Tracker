@@ -27,8 +27,6 @@ void viewExpenses();
 void displayMenu();
 // All the functions:
 
-
-
 int main() {
     int choice;
     while (choice !=0) {

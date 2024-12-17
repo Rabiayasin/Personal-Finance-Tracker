@@ -1,3 +1,4 @@
+//main-file.cpp
 // Including all the Header files
 #include <iostream>
 #include <string>
@@ -5,11 +6,20 @@
 #include <fstream>
 using namespace std;
 
+<<<<<<< HEAD
 // \hey I'm Rida
+=======
+>>>>>>> d6bff0a09c725d2bdc1259bc70d715863b1ad2c8
 
 // Global variables or constants
 int MAX_ENTRIES = 100;
+const int MAX_MONTHS = 12;
 
+// const int ALL_EXPENSES =  100;
+// int expenseCount = 0;
+// string category[ALL_EXPENSES];
+// string dateAdded[ALL_EXPENSES];
+// float amountToAdd[ALL_EXPENSES]; 
 // All the functions:
 
 void addEntry(string type, float amount, string category, string date);
@@ -17,18 +27,99 @@ void diplayMenu();
 void askUser();
 void saveDataToFile(const string& filename, float amounts[][2], string categories, string dates[], int currentIndex);
 void calculateBalance(float amounts[][2], int currentIndex, float &totalIncome, float &totalExpenses, float &balance);
-
+void addExpenses();
+void viewExpenses();
+void displayMenu();
+double calculateMonthlySavings(const string months[], const double income[], const double expenses[], int numMonths, const string& targetMonth);
+double calculateTotalSavings(const double income[], const double expenses[], int numMonths);
 // All the functions:
 
- main
+int main() {
+    int choice;
+    while (choice !=0) {
+    displayMenu();
+    cout << "Enter the operation you want to add: ";
+    cin >> choice;
+        switch (choice) {
+            case 1: {
+                addExpenses();
+                break;
+            }
 
+            case 2: {
+                viewExpenses();
+                break;
+            }
 
-int main(){
+            case 3: {
+
+                break;
+            }
+
+            case 4: {
+
+                break;
+            }
+            case 5: {
+                string targetMonth;
+	           double income[];
+               string months[MAX_MONTHS] = {"January", "February", "March", "April", "May", "June",
+                                "July", "August", "September", "October", "November", "December"};
+          for(int i=0; i<12; i++){
+    	  cout<<"Enter the income for month: "<<i+1;
+    	    cin>>income[i];
+    	    cout<<endl;
+	} 
+    int numMonths = 12; 
+    cout<<"Enter the month for which you want to display the total savings: ";
+    cin>>targetMonth;
+    double monthlySavings = calculateMonthlySavings(months, income, expenses, numMonths, targetMonth);
+    cout << "Savings for " << targetMonth << ": " << monthlySavings << endl;;
+    double totalSavings = calculateTotalSavings(income, expenses, numMonths);
+    cout << "Total Savings: " << totalSavings << endl;
+             break;
+            }
+        }
+    }
 
     return 0;
-
 }
 
+void displayMenu () {
+    cout << endl << "-----Your Personal Finance Tracker-----" <<endl;
+    cout << "1. Add Expenses" <<endl;
+    cout << "2. View All Expenses" <<endl;
+    cout << "3. View All Expenses Categorically" <<endl;
+    cout << "4. View Remaining Budget" <<endl;
+    cout << "5. Check Monthly and Total Savings" <<endl;
+    cout << "6. Check Expenses by Date Modified" <<endl;
+}
+
+void addExpenses() {
+    if (expenseCount > ALL_EXPENSES) {
+        cout << "Expense list is full" <<endl;
+        return; }
+
+    cout << "Enter the Category for the amount addition (e.g Food, Transport, Electricity, School Bills etc):" << endl;
+    cin >> category[expenseCount];
+    cout << "Enter the amount you want to add: " <<endl;
+    cin >> amountToAdd[expenseCount];
+    cout << "Enter today's date in the format - (DD/MM/YY)" << endl;
+    cin >> dateAdded[expenseCount];
+
+    expenseCount++;
+}
+
+void viewExpenses() {
+    if (expenseCount<=0)
+    cout << "No Data entered yet..." <<endl;
+    
+    for (int i=0; i<expenseCount; i++) {
+        cout << i+1 << ". Cateogry: " << category[i] << endl << "Amount: " << amountToAdd[i] << endl << "Date Added: " << dateAdded[i] <<endl;
+        cout <<endl;
+    }
+
+}
 
 void addEntry(bool type, float amount, string category, string date,
             float amounts[][2], string categories[], string dates[], int &currentIndex){
@@ -75,5 +166,31 @@ void saveDataToFile(const string& file, float amounts[][2], string categories, s
     cout << "Data saved successfully to file: " << file <<endl;
 }
 
+
+
+double calculateMonthlySavings(const string months[], const double income[], const double expenses[], int numMonths, const std::string& targetMonth) {
+    for (int i = 0; i < numMonths; ++i) {
+        if (months[i] == targetMonth) {
+            return income[i] - expenses[i];
+        }
+    }
+     cout << "Error: Month not found.\n";
+    return 0.0;
+}
+    for (int i = 0; i < numMonths; ++i) {
+        if (months[i] == targetMonth) {
+            return income[i] - expenses[i];
+        }
+    }
+     cout << "Error: Month not found.\n";
+    return 0.0;
 }
 
+
+double calculateTotalSavings(const double income[], const double expenses[], int numMonths) {
+    double totalSavings = 0.0;
+    for (int i = 0; i < numMonths; ++i) {
+        totalSavings += (income[i] - expenses[i]);
+    }
+    return totalSavings;
+}

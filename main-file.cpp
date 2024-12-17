@@ -6,7 +6,6 @@
 #include <fstream>
 using namespace std;
 
-
 // Global variables or constants
 int MAX_ENTRIES = 100;
 
@@ -18,7 +17,6 @@ int MAX_ENTRIES = 100;
 // All the functions:
 
 void addEntry(string type, float amount, string category, string date);
-void diplayMenu();
 void askUser();
 void saveDataToFile(const string& filename, float amounts[][2], string categories, string dates[], int currentIndex);
 void calculateBalance(float amounts[][2], int currentIndex, float &totalIncome, float &totalExpenses, float &balance);
@@ -73,6 +71,8 @@ void addExpenses() {
     if (expenseCount > ALL_EXPENSES) {
         cout << "Expense list is full" <<endl;
         return; }
+
+    
 
     cout << "Enter the Category for the amount addition (e.g Food, Transport, Electricity, School Bills etc):" << endl;
     cin >> category[expenseCount];

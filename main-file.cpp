@@ -5,7 +5,8 @@
 #include <fstream>
 using namespace std;
 
-Rabia-Yasin
+// \hey I'm Rida
+
 // Global variables or constants
 int MAX_ENTRIES = 100;
 

@@ -6,10 +6,8 @@
 #include <fstream>
 using namespace std;
 
-<<<<<<< HEAD
+
 // \hey I'm Rida
-=======
->>>>>>> d6bff0a09c725d2bdc1259bc70d715863b1ad2c8
 
 // Global variables or constants
 int MAX_ENTRIES = 100;
@@ -23,15 +21,16 @@ const int MAX_MONTHS = 12;
 // All the functions:
 
 void addEntry(string type, float amount, string category, string date);
-void diplayMenu();
 void askUser();
 void saveDataToFile(const string& filename, float amounts[][2], string categories, string dates[], int currentIndex);
 void calculateBalance(float amounts[][2], int currentIndex, float &totalIncome, float &totalExpenses, float &balance);
 void addExpenses();
 void viewExpenses();
 void displayMenu();
+
 double calculateMonthlySavings(const string months[], const double income[], const double expenses[], int numMonths, const string& targetMonth);
 double calculateTotalSavings(const double income[], const double expenses[], int numMonths);
+
 // All the functions:
 
 int main() {
@@ -60,6 +59,7 @@ int main() {
 
                 break;
             }
+
             case 5: {
                 string targetMonth;
 	           double income[];
@@ -79,6 +79,7 @@ int main() {
     cout << "Total Savings: " << totalSavings << endl;
              break;
             }
+
         }
     }
 
@@ -99,6 +100,7 @@ void addExpenses() {
     if (expenseCount > ALL_EXPENSES) {
         cout << "Expense list is full" <<endl;
         return; }
+
 
     cout << "Enter the Category for the amount addition (e.g Food, Transport, Electricity, School Bills etc):" << endl;
     cin >> category[expenseCount];

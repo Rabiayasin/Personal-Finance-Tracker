@@ -29,10 +29,36 @@ void displayMenu();
 
 
 
-int main(){
+int main() {
+    int choice;
+    while (choice !=0) {
+    displayMenu();
+    cout << "Enter the operation you want to add: ";
+    cin >> choice;
+        switch (choice) {
+            case 1: {
+                addExpenses();
+                break;
+            }
+
+            case 2: {
+                viewExpenses();
+                break;
+            }
+
+            case 3: {
+
+                break;
+            }
+
+            case 4: {
+
+                break;
+            }
+        }
+    }
 
     return 0;
-
 }
 
 void displayMenu () {

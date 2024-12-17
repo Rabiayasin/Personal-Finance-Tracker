@@ -6,8 +6,15 @@
 #include <fstream>
 using namespace std;
 
+<<<<<<< HEAD
 
 // \hey I'm Rida
+=======
+<<<<<<< HEAD
+// \hey I'm Rida
+=======
+>>>>>>> d6bff0a09c725d2bdc1259bc70d715863b1ad2c8
+>>>>>>> Rida-Syed
 
 // Global variables or constants
 int MAX_ENTRIES = 100;
@@ -27,6 +34,10 @@ void calculateBalance(float amounts[][2], int currentIndex, float &totalIncome, 
 void addExpenses();
 void viewExpenses();
 void displayMenu();
+
+double calculateMonthlySavings(const string months[], const double income[], const double expenses[], int numMonths, const string& targetMonth);
+double calculateTotalSavings(const double income[], const double expenses[], int numMonths);
+
 
 double calculateMonthlySavings(const string months[], const double income[], const double expenses[], int numMonths, const string& targetMonth);
 double calculateTotalSavings(const double income[], const double expenses[], int numMonths);

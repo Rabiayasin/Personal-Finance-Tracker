@@ -60,7 +60,7 @@ int main() {
             }
 
             case 3: {
-
+                viewExpensesCategorically(categories[], amounts[][2], currentIndex);
                 break;
             }
 

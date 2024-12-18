@@ -68,11 +68,10 @@ void displayMenu () {
 }
 
 void addExpenses() {
+    int expenseCount;
     if (expenseCount > ALL_EXPENSES) {
         cout << "Expense list is full" <<endl;
         return; }
-
-    
 
     cout << "Enter the Category for the amount addition (e.g Food, Transport, Electricity, School Bills etc):" << endl;
     cin >> category[expenseCount];
@@ -84,7 +83,7 @@ void addExpenses() {
     expenseCount++;
 }
 
-void viewExpenses() {
+void viewExpenses(int expenseCount) {
     if (expenseCount<=0)
     cout << "No Data entered yet..." <<endl;
     
@@ -138,7 +137,5 @@ void saveDataToFile(const string& file, float amounts[][2], string categories, s
     // close the file
     outFile.close();
     cout << "Data saved successfully to file: " << file <<endl;
-}
-
 }
 

@@ -15,10 +15,15 @@ const int MAX_MONTHS = 12;
 void addEntry(bool type, double amount, string category, string date, 
             double amounts[][2], string categories[], string dates[], int &currentIndex);
 void askUser(bool type, double amount, string category, string date);
-void saveDataToFile(const string& filename, float amounts[][2], string categories, string dates[], int currentIndex);
-void calculateBalance(float amounts[][2], int currentIndex, float &totalIncome, float &totalExpenses, float &balance);
-void addExpenses();
-void viewExpenses();
+void saveDataToFile(const string& filename, float amounts[][2], string categories,
+                     string dates[], int currentIndex);
+void calculateBalance(float amounts[][2], int currentIndex, float &totalIncome,
+                     float &totalExpenses, float &balance);
+void addExpenses(bool type, double amount, string category, string date,
+            double amounts[][2], string categories[], string dates[], int &currentIndex);
+void viewExpenses(double amounts[][2], string categories[], 
+                string dates[], int &currentIndex);
+void viewExpensesCategorically (string categories[], int amounts[][2], int currentIndex);
 void displayMenu();
 
 double calculateMonthlySavings(const string months[], double amounts[][2], int numMonths, const string& targetMonth);
@@ -45,18 +50,18 @@ int main() {
                 string date;
 
                 askUser(type, amount, category, date);
-                addEntry(type, amount, category, date, amounts[][], categories[], 
+                addEntry(type, amount, category, date, amounts[][2], categories[], 
                 dates[], &currentIndex);
                 break;
             }
 
             case 2: {
-                viewExpenses();
+                viewExpenses(amounts, categories, dates, &currentIndex);
                 break;
             }
 
             case 3: {
-
+                viewExpensesCategorically(categories[], amounts[][2], currentIndex);
                 break;
             }
 
@@ -90,7 +95,6 @@ int main() {
 
         }
     }
-
     return 0;
 }
 
@@ -104,7 +108,7 @@ void displayMenu () {
     cout << "6. Check Expenses by Date Modified" <<endl;
 }
 
-void askUser (bool type, double amount, string category, string date) {
+void askUser (bool &type, double &amount, string &category, string &date) {
     cout << "Enter the type of entry (1 for income, 0 for expense)" <<endl;
     cin >> type;
     double amount;
@@ -115,10 +119,9 @@ void askUser (bool type, double amount, string category, string date) {
     cin.ignore();
     cout << "Enter the date of the expenditure: " <<endl;
     getline (cin, date);
-
 }
 
-void viewExpenses(double amounts[][], string categories[], 
+void viewExpenses(double amounts[][2], string categories[], 
                 string dates[], int &currentIndex) {
     int choice;
     if (currentIndex <=0)
@@ -128,23 +131,56 @@ void viewExpenses(double amounts[][], string categories[],
         cout << "Do you wish to view income (1), expense (0), or both (2)." << endl;
         cin >> choice;
 
-    if (choice ==0) {
+    if (choice ==0) { // for expense
+            cout << "Your expense details are: " <<endl;
         for (int i=0; i<currentIndex; i++) {
-            cout << "Index: " << i+1 << endl << "Category: " << categories[i] << endl; 
-            cout << "Amount: " << amounts[i][] << endl << "Date Added: " << dates[i] <<endl;
-            cout <<endl;
+            if (amounts[i][1] == 0){
+                cout << "Index: " << i+1 << endl << "Category: " << categories[i] << endl; 
+                cout << "Amount: " << amounts[i][0] << endl << "Date Added: " << dates[i] <<endl;
+                cout <<endl;
+                }
             }
         }
-    }
 
+        else if (choice ==1) { // for income
+            cout << "Your income details are: " <<endl;
+        for (int i=0; i<currentIndex; i++) {
+            if (amounts[i][1] == 1) {
+                cout << "Index: " << i+1 << endl; 
+                cout << "Amount: " << amounts[i][1] << endl << "Date Added: " << dates[i] <<endl;
+                cout <<endl;
+                }
+            }
+        }
+
+        else if (choice == 2) { // for both
+            cout << "Your expense details are: " <<endl;
+        for (int i=0; i<currentIndex; i++) {
+            if (amounts[i][1] == 0){
+                cout << "Index: " << i+1 << endl << "Category: " << categories[i] << endl; 
+                cout << "Amount: " << amounts[i][0] << endl << "Date Added: " << dates[i] <<endl;
+                cout <<endl;
+                }
+            }
+
+            cout << "Your income details are: " <<endl;
+        for (int i=0; i<currentIndex; i++) {
+            if (amounts[i][1] == 1) {
+                cout << "Index: " << i+1 << endl; 
+                cout << "Amount: " << amounts[i][1] << endl << "Date Added: " << dates[i] <<endl;
+                cout <<endl;
+                }
+            }
+        }
+        else
+        cout << "Choice entered is not valid!" <<endl;
+    }
 }
 
 void addEntry(bool type, double amount, string category, string date,
             double amounts[][2], string categories[], string dates[], int &currentIndex){
     /*This function stores the correct data: income or expense, category and date 
-    2D array to store amount and its type (0 for expense and 1 for income) 
-    1D array to store category and date*/
-    // Check if there's space for more enteries
+    2D array to store amount and its type (0 for expense and 1 for income) 1D array to store category and date*/
     if (currentIndex >= MAX_ENTRIES) {
         cout << "No more space for entries." << endl;
         return;
@@ -159,7 +195,17 @@ void addEntry(bool type, double amount, string category, string date,
     cout<<"Entry added successfully!"<<endl;
 }
 
+void viewExpensesCategorically (string categories[], int amounts[][2], int currentIndex) {
+    string enteredCategory;
+    cout << "Enter the category you want to see the expenses of: ";
+    getline(cin, enteredCategory);
 
+    for (int i=0; i<currentIndex; i++) {
+    if (enteredCategory == categories[i])
+        if  (amounts[0][1] == 0)
+        cout << "Category: " << categories[i] << endl << "Amount: " << amounts[i][0] <<endl;
+    }
+}
 void saveDataToFile(const string& file, float amounts[][2], string categories, string dates[], int currentIndex){
     // open file for writing
     ofstream outFile(file);
@@ -193,7 +239,7 @@ void calculateMonthlySavings(const string months[], double amounts[][2], int num
      
 }
 
-void calculateTotalSavings(double amounts[][2], int numMonths) {
+void calculateTotalSavings(const double income[], const double expenses[], int numMonths) {
     double totalSavings = 0.0;
     for (int i = 0; i < numMonths; i++) {
         totalSavings += (amounts[i][1] - amounts[i][0]);

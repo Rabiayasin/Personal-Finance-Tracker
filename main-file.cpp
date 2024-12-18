@@ -21,8 +21,9 @@ void addExpenses();
 void viewExpenses();
 void displayMenu();
 
-double calculateMonthlySavings(const string months[], const double income[], const double expenses[], int numMonths, const string& targetMonth);
-double calculateTotalSavings(const double income[], const double expenses[], int numMonths);
+double calculateMonthlySavings(const string months[], double amounts[][2], int numMonths, const string& targetMonth);
+double calculateTotalSavings(double amounts[][2], int numMonths);
+void checkExpensesByDate(const string dates[], double amounts[][2], int size, const string &targetDate) {
 
 // All the functions:
 
@@ -69,22 +70,23 @@ int main() {
 	           double income[];
                string months[MAX_MONTHS] = {"January", "February", "March", "April", "May", "June",
                                 "July", "August", "September", "October", "November", "December"};
-          for(int i=0; i<12; i++){
-    	  cout<<"Enter the income for month: "<<i+1;
-    	    cin>>income[i];
-    	    cout<<endl;
-	} //loop for entering income for each month
-    int numMonths = 12; 
-    cout<<"Enter the month for which you want to display the total savings: ";
-    cin>>targetMonth;
-    double monthlySavings = calculateMonthlySavings(months, income, expenses, numMonths, targetMonth);
-    //function for calculating monthly savings
-    cout << "Savings for " << targetMonth << ": " << monthlySavings << endl; 
-    double totalSavings = calculateTotalSavings(income, expenses, numMonths);
-    //function for calculating total savings
-    cout << "Total Savings: " << totalSavings << endl;
+          
+	            cout<<"Enter the month for which you want to display the total savings: ";
+                cin>>targetMonth;
+                 calculateMonthlySavings(months, amounts, MAX_MONTHS, targetMonth);
+                //function for calculating monthly savings
+                calculateTotalSavings(amounts, MAX_MONTHS );
+                //function for calculating total savings
              break;
             }
+            case 6:{
+                string targetDate;
+                cout<<"Enter the date to check expenses: ";
+                getline(cin, targetDate);
+                checkExpensesByDate(dates, amounts, targetDate);
+                break;
+            }
+
 
         }
     }
@@ -181,43 +183,32 @@ void saveDataToFile(const string& file, float amounts[][2], string categories, s
     cout << "Data saved successfully to file: " << file <<endl;
 }
 
-double calculateMonthlySavings(const string months[], const double income[], const double expenses[],
- int numMonths, const string& targetMonth) {
-    for (int i = 0; i < numMonths; ++i) {
+void calculateMonthlySavings(const string months[], double amounts[][2], int numMonths, const string &targetMonth) {
+    for (int i = 0; i < numMonths; i++) {
         if (months[i] == targetMonth) {
-            return income[i] - expenses[i];
+           monthlysSavings= amounts[i][1]-amounts[i][0];
+         cout << "Savings for " << targetMonth << ": " << monthlySavings << endl; 
         }
     }
-     cout << "Error: Month not found.\n";
-    return 0.0;
-
-    for (int i = 0; i < numMonths; ++i) {
-        if (months[i] == targetMonth) {
-            return income[i] - expenses[i];
-        }
-    }
-     cout << "Error: Month not found.\n";
-    return 0.0;
+     
 }
 
-
-
-double calculateTotalSavings(const double income[], const double expenses[], int numMonths) {
+void calculateTotalSavings(double amounts[][2], int numMonths) {
     double totalSavings = 0.0;
-    for (int i = 0; i < numMonths; ++i) {
-        totalSavings += (income[i] - expenses[i]);
+    for (int i = 0; i < numMonths; i++) {
+        totalSavings += (amounts[i][1] - amounts[i][0]);
     }
-    return totalSavings;
+    cout << "Total Savings: " << totalSavings << endl;
 }
 
-void checkExpensesByDate(const string dates[], const double amount[], int size, const string &targetDate){
+void checkExpensesByDate(const string dates[], double amounts[][2], int size, const string &targetDate){
     bool found= false;
 
     cout<<"Expense for date: "<<targetDate<<endl;
 
     for(int i=0; i<size; i++){
         if(dates[i]==targetDate){
-            cout<<"Amounts: $ "<<amount[i]<<endl;
+            cout<<"Amounts: $ "<<amount[i][0]<<endl;
             found=true;
         }
     }

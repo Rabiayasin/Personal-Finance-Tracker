@@ -90,7 +90,6 @@ int main() {
           
 	            cout<<"Enter the month for which you want to display the total savings: ";
                 cin>>targetMonth;
-                calculateMonthlySavings(months, amounts, MAX_MONTHS, targetMonth);
                 //function for calculating monthly savings
                 calculateTotalSavings(amounts, MAX_MONTHS );
                 //function for calculating total savings

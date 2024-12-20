@@ -290,7 +290,7 @@ void calculateTotalSavings(double amount[][2]){
      cout<<"Your total savings are: $"<<totalSavings<<"!"<<endl;
 }
 
-void checkExpensesByDate(string dates[], double amounts[][2], string &targetDate){
+void checkExpensesByDate(string dates[], double amounts[][2], string& targetDate){
     bool found= false;
 
     cout<<"Expense for date: "<<targetDate<<endl;

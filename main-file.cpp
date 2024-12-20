@@ -9,27 +9,20 @@ using namespace std;
 
 // Global variables or constants
 int MAX_ENTRIES = 100;
-<<<<<<< HEAD
-=======
 
->>>>>>> 44489693adeab502815d1f7209ce50b00e18e545
 // All the functions:
 
-void addEntry(bool type, double amount, string category, string date, 
-            double amounts[][2], string categories[], string dates[], int &currentIndex);
-void askUser(bool& type, double& amount, string& category, string& date);
-void saveDataToFile(string& filename, bool type, string category, string date, int currentIndex);
-void loadDataFromFile(string &filename, float amounts[][2], string categories[], string dates[]);
-void calculateBalance(float amounts[][2], int currentIndex, float &totalIncome,
-                     float &totalExpenses, float &balance);
-void addExpenses(bool type, double amount, string category, string date,
-            double amounts[][2], string categories[], string dates[], int &currentIndex);
-void viewExpenses(double amounts[][2], string categories[], string dates[], int currentIndex);
+void addEntry (bool type, double amount, string category, string date, double amounts[][2], string categories[], string dates[], int &currentIndex);
+void askUser (bool& type, double& amount, string& category, string& date);
+void saveDataToFile (string& filename, bool type, string category, string date, int currentIndex);
+void loadDataFromFile (string &filename, float amounts[][2], string categories[], string dates[]);
+void calculateBalance (float amounts[][2], int currentIndex, float &totalIncome, float &totalExpenses, float &balance);
+void addExpenses (bool type, double amount, string category, string date, double amounts[][2], string categories[], string dates[], int &currentIndex);
+void viewExpenses (double amounts[][2], string categories[], string dates[], int currentIndex);
 void viewExpensesCategorically (string categories[], double amounts[][2], int currentIndex);
+void calculateTotalSavings (double amounts[][2]);
+void checkExpensesByDate (string dates[], double amounts[][2], int size, string& targetDate);
 void displayMenu();
-void calculateTotalSavings(double amounts[][2])
-void checkExpensesByDate( string dates[], double amounts[][2], int size, string& targetDate);
-
 
 // All the functions:
 int main() {
@@ -97,7 +90,8 @@ int main() {
                 } 
             }
         }
-        }    return 0;
+    }  
+        return 0;
 }
     
 
@@ -271,7 +265,7 @@ void loadDataFromFile(string &filename, float amounts[][2], string categories[],
     inFile.close();
 }
 
-void calculateTotalSavings(double amount[][2]){
+void calculateTotalSavings(double amounts[][2]){
     double totalSavings, income, expense;
     for (int i=0; i<MAX_ENTRIES; i++){
         if (amounts[i][1] == 1){
@@ -291,7 +285,7 @@ void checkExpensesByDate(string dates[], double amounts[][2], string& targetDate
     cout<<"Expense for date: "<<targetDate<<endl;
     for(int i=0; i<MAX_ENTRIES; i++){
         if(dates[i]==targetDate){
-            cout<<"Amounts: $ "<<amount[i][0]<<endl;
+            cout<<"Amounts: $ "<<amounts[i][0]<<endl;
             found=true;
         }
     }

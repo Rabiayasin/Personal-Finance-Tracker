@@ -7,20 +7,6 @@
 
 using namespace std;
 
- Rabia-Yasin
-int MAX_SIZE = 100;
-
-void addEntry(string type, float amount, string category, string date);
-void askUser();
-void saveDataToFile(const string& file, bool type, int amount, string category, string date, int currentIndex);
-void calculateBalance(float amounts[][2], int currentIndex, float &totalIncome, float &totalExpenses, float &balance);
-void addExpenses();
-void viewExpenses();
-void displayMenu();
-void loadDataFromFile(const string &filename, float amounts[][2], string categories[], string datas[]);
-double calculateMonthlySavings(const string months[], const double income[], const double expenses[], int numMonths, const string& targetMonth);
-double calculateTotalSavings(const double income[], const double expenses[], int numMonths);
-
 // Global variables or constants
 int MAX_ENTRIES = 100;
 
@@ -40,13 +26,12 @@ void viewExpenses(double amounts[][2], string categories[],
 void viewExpensesCategorically (string categories[], int amounts[][2], int currentIndex);
 void displayMenu();
 
-double calculateMonthlySavings( string months[], double amounts[][2], int numMonths, string &targetMonth);
-double calculateTotalSavings(double amounts[][2], int numMonths);
-void checkExpensesByDate(string dates[], double amounts[][2], int size,  string &targetDate);
+double calculateMonthlySavings( string months[], double amounts[][2], int numMonths,  string& targetMonth);
+double calculateTotalSavings(double amounts[][2], int numMonths)
+void checkExpensesByDate( string dates[], double amounts[][2], int size, string& targetDate);
 
 
 // All the functions:
-
 int main() {
 
     bool type = 0;
@@ -67,13 +52,12 @@ int main() {
 
     loadDataFromFile(amounts, categories, dates);
 
-
     int choice;
     string categories[MAX_ENTRIES]; 
     double amounts[MAX_ENTRIES][2];
     string dates[MAX_ENTRIES];
     int currentIndex = 0;
-     int MAX_MONTHS = 12;
+
     while (choice !=0) {
     displayMenu();
     cout << "Enter the operation you want to add: ";
@@ -86,8 +70,7 @@ int main() {
                 string date;
 
                 askUser(type, amount, category, date);
-                addEntry(type, amount, category, date, amounts[][2], categories[], 
-                dates[], &currentIndex);
+                addEntry(type, amount, category, date, amounts[][2], categories[], dates[], &currentIndex);
                 break;
             }
 
@@ -102,33 +85,26 @@ int main() {
             }
 
             case 4: {
-
-                break;
-            }
-
-            case 5: {
                 string targetMonth;
-	           double income[];
-               string months[MAX_MONTHS] = {"January", "February", "March", "April", "May", "June",
+	            double income[];
+                string months[MAX_MONTHS] = {"January", "February", "March", "April", "May", "June",
                                 "July", "August", "September", "October", "November", "December"};
           
 	            cout<<"Enter the month for which you want to display the total savings: ";
                 cin>>targetMonth;
-                 calculateMonthlySavings(months, amounts, MAX_MONTHS, targetMonth);
+                calculateMonthlySavings(months, amounts, MAX_MONTHS, targetMonth);
                 //function for calculating monthly savings
                 calculateTotalSavings(amounts, MAX_MONTHS );
                 //function for calculating total savings
              break;
             }
-            case 6:{
+            case 5: {
                 string targetDate;
                 cout<<"Enter the date to check expenses: ";
                 getline(cin, targetDate);
                 checkExpensesByDate(dates, amounts, targetDate);
                 break;
             }
-
-
         }
     }
     return 0;
@@ -139,9 +115,8 @@ void displayMenu () {
     cout << "1. Add Expenses" <<endl;
     cout << "2. View All Expenses" <<endl;
     cout << "3. View All Expenses Categorically" <<endl;
-    cout << "4. View Remaining Budget" <<endl;
-    cout << "5. Check Monthly and Total Savings" <<endl;
-    cout << "6. Check Expenses by Date Modified" <<endl;
+    cout << "4. Check Monthly and Total Savings" <<endl;
+    cout << "5. Check Expenses by Date Modified" <<endl;
 }
 
 void askUser (bool &type, double &amount, string &category, string &date) {
@@ -162,7 +137,6 @@ void viewExpenses(double amounts[][2], string categories[],
     int choice;
     if (currentIndex <=0)
     cout << "No Data entered yet." <<endl;
-    
     else {
         cout << "Do you wish to view income (1), expense (0), or both (2)." << endl;
         cin >> choice;
@@ -178,7 +152,7 @@ void viewExpenses(double amounts[][2], string categories[],
             }
         }
 
-        else if (choice ==1) { // for income
+    else if (choice ==1) { // for income
             cout << "Your income details are: " <<endl;
         for (int i=0; i<currentIndex; i++) {
             if (amounts[i][1] == 1) {
@@ -189,7 +163,7 @@ void viewExpenses(double amounts[][2], string categories[],
             }
         }
 
-        else if (choice == 2) { // for both
+    else if (choice == 2) { // for both
             cout << "Your expense details are: " <<endl;
         for (int i=0; i<currentIndex; i++) {
             if (amounts[i][1] == 0){
@@ -198,7 +172,6 @@ void viewExpenses(double amounts[][2], string categories[],
                 cout <<endl;
                 }
             }
-
 
             cout << "Your income details are: " <<endl;
         for (int i=0; i<currentIndex; i++) {
@@ -232,8 +205,6 @@ void addEntry(bool type, double amount, string category, string date,
     cout<<"Entry added successfully!"<<endl;
 }
 
-
-
 void viewExpensesCategorically (string categories[], int amounts[][2], int currentIndex) {
     string enteredCategory;
     cout << "Enter the category you want to see the expenses of: ";
@@ -245,6 +216,7 @@ void viewExpensesCategorically (string categories[], int amounts[][2], int curre
         cout << "Category: " << categories[i] << endl << "Amount: " << amounts[i][0] <<endl;
     }
 }
+
 void saveDataToFile(const string& file, bool type, int amount, string category, string date, int currentIndex){{
     // open file for writing
     ofstream outFile(file);
@@ -254,7 +226,6 @@ void saveDataToFile(const string& file, bool type, int amount, string category, 
         cout<<"Error: COuld not open file for writing."<<endl;
         return;
     }
-
     // Write each entry into the file
     outFile << currentIndex << ","  
                 << amount << ","
@@ -262,13 +233,10 @@ void saveDataToFile(const string& file, bool type, int amount, string category, 
                 << category << ","
                 << date << endl;
     
-
     // close the file
     outFile.close();
     cout << "Data saved successfully to file: " << file <<endl;
 }
-
-
 
 void loadDataFromFile(const string &filename, float amounts[][2], string categories[], string datas[]){
     ifstream inFile(filename);
@@ -278,7 +246,6 @@ void loadDataFromFile(const string &filename, float amounts[][2], string categor
         cout << "Error: Could not open file for reading." << endl;
         return;
     }
-
     string line;
     while (getline(inFile, line)){
         stringstream ss(line);
@@ -307,11 +274,9 @@ void loadDataFromFile(const string &filename, float amounts[][2], string categor
         types[index][1] = type;
         categories[index] = category;
         dates[index] = date;
-
     }
     inFile.close();
 }
-
 
 double calculateMonthlySavings(const string months[], const double income[], const double expenses[], int numMonths, const std::string& targetMonth) {
     for (int i = 0; i < numMonths; ++i) {
@@ -323,7 +288,6 @@ void calculateMonthlySavings(string months[], double amounts[][2], int numMonths
          cout << "Savings for " << targetMonth << ": " << monthlySavings << endl; 
         }
     }
-     
 }
 
 void calculateTotalSavings(double income[], double expenses[], int numMonths) {
@@ -338,20 +302,14 @@ void checkExpensesByDate( string dates[], double amounts[][2], int size, string 
     bool found= false;
 
     cout<<"Expense for date: "<<targetDate<<endl;
-
     for(int i=0; i<size; i++){
         if(dates[i]==targetDate){
             cout<<"Amounts: $ "<<amount[i][0]<<endl;
             found=true;
         }
     }
-
     return totalSavings;
 }
-
-
-
-
     if(!found){
         cout<<"No expenses for given date! "<<endl;
     }

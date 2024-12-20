@@ -8,7 +8,6 @@ using namespace std;
 
 // Global variables or constants
 int MAX_ENTRIES = 100;
-const int MAX_MONTHS = 12;
 
 // All the functions:
 
@@ -38,6 +37,7 @@ int main() {
     double amounts[MAX_ENTRIES][2];
     string dates[MAX_ENTRIES];
     int currentIndex = 0;
+     int MAX_MONTHS = 12;
     while (choice !=0) {
     displayMenu();
     cout << "Enter the operation you want to add: ";

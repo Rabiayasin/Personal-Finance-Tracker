@@ -28,7 +28,7 @@ void displayMenu();
 
 double calculateMonthlySavings(const string months[], double amounts[][2], int numMonths, const string& targetMonth);
 double calculateTotalSavings(double amounts[][2], int numMonths);
-void checkExpensesByDate(const string dates[], double amounts[][2], int size, const string &targetDate) {
+void checkExpensesByDate(const string dates[], double amounts[][2], int size, const string &targetDate);
 
 // All the functions:
 
@@ -50,8 +50,7 @@ int main() {
                 string date;
 
                 askUser(type, amount, category, date);
-                addEntry(type, amount, category, date, amounts[][2], categories[], 
-                dates[], &currentIndex);
+                addEntry(type, amount, category, date, amounts[][2], categories[], dates[], &currentIndex);
                 break;
             }
 
@@ -66,25 +65,20 @@ int main() {
             }
 
             case 4: {
-
-                break;
-            }
-
-            case 5: {
                 string targetMonth;
-	           double income[];
-               string months[MAX_MONTHS] = {"January", "February", "March", "April", "May", "June",
+	            double income[];
+                string months[MAX_MONTHS] = {"January", "February", "March", "April", "May", "June",
                                 "July", "August", "September", "October", "November", "December"};
           
 	            cout<<"Enter the month for which you want to display the total savings: ";
                 cin>>targetMonth;
-                 calculateMonthlySavings(months, amounts, MAX_MONTHS, targetMonth);
+                calculateMonthlySavings(months, amounts, MAX_MONTHS, targetMonth);
                 //function for calculating monthly savings
                 calculateTotalSavings(amounts, MAX_MONTHS );
                 //function for calculating total savings
              break;
             }
-            case 6:{
+            case 5: {
                 string targetDate;
                 cout<<"Enter the date to check expenses: ";
                 getline(cin, targetDate);
@@ -103,9 +97,8 @@ void displayMenu () {
     cout << "1. Add Expenses" <<endl;
     cout << "2. View All Expenses" <<endl;
     cout << "3. View All Expenses Categorically" <<endl;
-    cout << "4. View Remaining Budget" <<endl;
-    cout << "5. Check Monthly and Total Savings" <<endl;
-    cout << "6. Check Expenses by Date Modified" <<endl;
+    cout << "4. Check Monthly and Total Savings" <<endl;
+    cout << "5. Check Expenses by Date Modified" <<endl;
 }
 
 void askUser (bool &type, double &amount, string &category, string &date) {

@@ -140,7 +140,7 @@ void viewExpenses(double amounts[][2], string categories[],
         for (int i=0; i<currentIndex; i++) {
             if (amounts[i][1] == 1) {
                 cout << "Index: " << i+1 << endl; 
-                cout << "Amount: " << amounts[i][1] << endl << "Date Added: " << dates[i] <<endl;
+                cout << "Amount: " << amounts[i][0] << endl << "Date Added: " << dates[i] <<endl;
                 cout <<endl;
                 }
             }
@@ -160,7 +160,7 @@ void viewExpenses(double amounts[][2], string categories[],
         for (int i=0; i<currentIndex; i++) {
             if (amounts[i][1] == 1) {
                 cout << "Index: " << i+1 << endl; 
-                cout << "Amount: " << amounts[i][1] << endl << "Date Added: " << dates[i] <<endl;
+                cout << "Amount: " << amounts[i][0] << endl << "Date Added: " << dates[i] <<endl;
                 cout <<endl;
                 }
             }
@@ -195,7 +195,7 @@ void viewExpensesCategorically (string categories[], int amounts[][2], int curre
 
     for (int i=0; i<currentIndex; i++) {
     if (enteredCategory == categories[i])
-        if  (amounts[0][1] == 0)
+        if  (amounts[i][1] == 0)
         cout << "Category: " << categories[i] << endl << "Amount: " << amounts[i][0] <<endl;
     }
 }
@@ -222,7 +222,7 @@ void saveDataToFile(const string& file, float amounts[][2], string categories, s
     cout << "Data saved successfully to file: " << file <<endl;
 }
 
-void calculateMonthlySavings(const string months[], double amounts[][2], int numMonths, const string &targetMonth) {
+void calculateMonthlySavings(string months[], double amounts[][2], int numMonths,  string &targetMonth) {
     for (int i = 0; i < numMonths; i++) {
         if (months[i] == targetMonth) {
            monthlysSavings= amounts[i][1]-amounts[i][0];
@@ -232,7 +232,7 @@ void calculateMonthlySavings(const string months[], double amounts[][2], int num
      
 }
 
-void calculateTotalSavings(const double income[], const double expenses[], int numMonths) {
+void calculateTotalSavings(double income[], double expenses[], int numMonths) {
     double totalSavings = 0.0;
     for (int i = 0; i < numMonths; i++) {
         totalSavings += (amounts[i][1] - amounts[i][0]);
@@ -240,7 +240,7 @@ void calculateTotalSavings(const double income[], const double expenses[], int n
     cout << "Total Savings: " << totalSavings << endl;
 }
 
-void checkExpensesByDate(const string dates[], double amounts[][2], int size, const string &targetDate){
+void checkExpensesByDate( string dates[], double amounts[][2], int size, string &targetDate){
     bool found= false;
 
     cout<<"Expense for date: "<<targetDate<<endl;
